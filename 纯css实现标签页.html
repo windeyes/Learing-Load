@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>纯css实现标签页</title>
+		<style>
+			a{
+				float:left;
+				display: block;
+				padding: 4px 18px;
+				border-radius:8px;
+				background-color: #FFA500;
+				margin-left:10px ;
+			}
+			div{
+				background:red;
+				position:absolute;
+				width: 500px;
+				height: 400px;
+				top:50px;
+			}
+			#box1 {
+				display:block;
+				background: #BBFFAA;
+			}
+			#box2{
+				background: #FF69B4;
+			}
+			#box3{
+				background: #FFC0CB;
+			}
+			div{
+				display: none;
+			}
+			:target{
+				display: block;
+			}
+		</style>
+	</head>
+	<body>
+		<a href="#box1">box1</a>
+		<a href="#box2">box2</a>
+		<a href="#box3">box3</a>
+		<div id="box1">box1</div>
+		<div id="box2">box2</div>
+		<div id="box3">box3</div>
+		
+	</body>
+</html>

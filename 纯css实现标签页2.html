@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>纯css实现标签页</title>
+		<style>
+			/* 最外层 */
+			.view{
+				width: 600px;
+				margin: 0 auto;
+			}
+			/* 清浮动 */
+			.clearfix:before,
+			.clearfix:after{
+				content: "";
+				display: block;
+				clear: both;
+			}
+			.btn_box{
+				width: 300px;
+				margin:0 auto;
+			}
+			/* 按钮 */
+			a{
+				float: left;
+				display: block;
+				color: white;
+				padding: 4px 18px;
+				background: #FF69B4;
+				text-decoration: none;
+				margin-left: 10px;
+				border-radius: 4px;
+			}
+			/* box容器 */
+			#big{
+				overflow: hidden;
+				float:left;
+				margin-top:20px;
+				width: 100%;
+				height: 300px;
+				
+			}
+			
+			#big div {
+				width: 100%;
+				height: 300px;
+				float: left;
+				background: none;
+				text-align: center;
+				line-height: 300px;
+				color: black;
+			}
+			#big #box1{
+				background-color: #BBFFAA;
+			}
+			#big #box2{
+				background-color: #FFA500;
+			}
+			#big #box3{
+				background-color:pink;
+			}
+		</style>
+	</head>
+	<body>
+		<!-- 最外层 -->
+		<div class="view clearfix">
+			<!-- 按钮 -->
+			<div class="btn_box clearfix">
+				<a href="#box1">box1</a>
+				<a href="#box2">box2</a>
+				<a href="#box3">box3</a>
+			</div>
+			
+			<!-- box容器 -->
+			<div id="big" class="clearfix">
+				
+				<div id="box1">box1</div>
+				<div id="box2">box2</div>
+				<div id="box3">box3</div>
+			</div>
+				
+		</div>
+		
+		
+		
+		
+	</body>
+</html>

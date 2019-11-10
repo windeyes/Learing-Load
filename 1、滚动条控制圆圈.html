@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			#circle1{
+				width: 200px;
+				height: 200px;
+				border:1px solid red;
+				border-radius: 50%;
+				position: absolute;
+				left: 50%;
+				top:50%;
+				transform: translate(-50%,-50%);
+				
+				
+			}
+			#bigbox{
+				width: 400px;
+				height: 400px;
+				border:1px solid red;
+				text-align: center;
+				position: relative;
+				
+					input[type=range] {
+				    -webkit-appearance: none;
+				    width: 300px;
+				    border-radius: 10px; /*这个属性设置使填充进度条时的图形为圆角*/
+				}
+				
+		
+			}
+			 input[type="range"] {
+            /*滑动条背景*/
+            -webkit-appearance: none;
+            background-color: #58c3bb;
+            height: 5px;
+        }
+        
+         input[type=range]:focus {
+            /*滑动条选择后外边距*/
+            outline: none;
+        }
+        
+         input[type="range"]::-webkit-slider-thumb {
+            /*滑动条操作按钮样式*/
+            -webkit-appearance: none;
+            border-radius: 5px;
+            background: red;
+            width: 10px;
+            height: 11px;
+        }
+		</style>
+	
+
+	</head>
+	<body>
+		<form id="ladong" action="" oninput="b.value = range1.value">
+			<input  
+			type="range" 
+			id="range1" 
+			min="0" max="150" 
+			style="width: 250px;" 
+			value="150" 
+			onchange="change(this.value)"
+			oninput="change(this.value)"/>
+			<output id="b" name ="b" for="range1" >{{thevalue}}</output>
+		</form>
+		<div id="bigbox">
+			<div id="circle1" for="range1" ></div>
+		</div>
+		
+	</body>
+	
+	
+	<script type="text/javascript">
+		window.onload = function()
+		{
+			var range1 = document.getElementById("range1");
+			var b = document.getElementById("b");
+			function getid (theId)
+			{
+				var theObj = document.getElementById(theId);
+				return theObj;
+			}
+			
+			//拉动的位置影响数值
+			b.value = range1.value;
+			circle1 = getid("circle1");
+			
+			
+		}
+  		function change(thevalue){
+ 			circle1.style.width = parseInt(thevalue)+50+"px";
+  			circle1.style.height = circle1.style.width;
+  		}
+	</script>
+</html>
+
+
