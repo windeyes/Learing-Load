@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>倒三角</title>
+    <style>
+        a{
+            display: block;
+            width: 150px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 6px;
+            background-color: skyblue;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+   <a href="https://www.cnblogs.com/axu1997/">我的博客</a><br/>
+</body>
+<script>
+
+    
+    
+        /*  预期效果
+                *******
+                 *****
+                  ***
+                   *  
+
+            1、总行数row_nums与第一行数量one_nums的关系：等差数组
+                总行数  第一行
+                1         1
+                2         3
+                3         5
+                4         7
+            one_nums = 1+(row_nums - 1)*2
+            2、每一行的数量every_rowsnum与第一行one_nums和所处行数rows的关系
+            行数  数量  第一行
+             1     7     7 
+             2     5     7
+             3     3     7
+             .....
+            every_rowsnum = onw_nums + (rows-1)*(-2)
+            3、每一行需要的空格数space_conunt与所处行数rows的关系
+                 1 0
+                 2 1
+                 3 2
+                 4 3 ...
+            space_count = rows - 1;
+
+        */
+
+    let  rows = prompt("输入你想要的行数");
+    (function fn(r){
+        for(let i  = 1;i<= rows;i++)
+        {
+            //每行的个数
+            // let row_num = 1+(r-1)*2 -(i-1)*2;
+            let row_num = 2*r-2*i+1
+            for(let k =0;k<i;k++)
+            {
+                document.write("<font style='color:white'>❤</font>");
+                // document.write("❤");
+                // document.write(" ");
+            }
+            for(let j =0;j<row_num;j++){
+
+                document.write("❤");
+            }
+            document.write("<br/>")
+            console.log(row_num);
+        }
+        
+    })(rows);
+    
+
+
+</script>
+</html>
