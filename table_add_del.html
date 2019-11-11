@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .clearfix::after,
+        .clearfix::before {
+            clear: both;
+            content: "";
+            display: block;
+        }
+        h4{
+            width: 390px;
+            margin:20px auto;
+
+        }
+        a {
+            display: block;
+            width: 150px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 6px;
+            background-color: skyblue;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            margin: 0 auto;
+        }
+
+        .myinput {
+            margin: 0 auto;
+            width: 800px;
+        }
+
+        .myinput button {
+            margin-left: 40px;
+            background-color: pink;
+            border-radius: 3px;
+            color: white;
+            border: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        td,
+        th {
+            border: 1px solid #ccc;
+            width: 200px;
+            text-align: center;
+        }
+
+        td span {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="https://www.cnblogs.com/axu1997/">我的博客</a><br />
+    <h4>说明：输入对应值后回车或者点击按钮进行添加</h4>
+    <div class="myinput clearfix">
+        品牌：<input type="text" class="type">
+        价格：<input type="text" class="price">
+        颜色：<input type="text" class="color">
+        <button>添加</button>
+    </div>
+
+    <table>
+        <tr>
+            <th>品牌</th>
+            <th>价格(万元)</th>
+            <th>颜色</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>宝马</td>
+            <td>120</td>
+            <td>红</td>
+            <td><span>删除</span></td>
+
+        </tr>
+
+    </table>
+</body>
+<script>
+    /*使用选择器选择对象*/
+    function $qs(s) {
+        return document.querySelector(s);
+    }
+    function $qsAll(s) {
+        return document.querySelectorAll(s);
+    }
+    // 所有输入框
+    let allinput = $qsAll("input");
+    // 各个输入框
+    let type = $qs(".type");
+    let price = $qs(".price");
+    let color = $qs(".color");
+    // 提交按钮
+    let sub_btn = $qs(".myinput button");
+
+    //注意：tbody不是table
+    let msg_table = $qs("tbody");
+
+    // 点击添加事件
+    sub_btn.onclick = function () {
+        // 第一行 注意：此处必须写在onclick中否则会报错
+        let firstline = $qs("table tr:nth-child(2)")
+        let typetext = type.value;
+        let pricetext = price.value;
+        let colortext = color.value;
+        //bug产生
+        // input_null(typetext,"类型");
+        // input_null(pricetext,"价格");
+        // input_null(typetext,"颜色");
+        if (!typetext) {
+            alert("请输入类型");
+            return;
+        }
+        if (!pricetext) {
+            alert("请输入价格");
+            return;
+        }
+        if (!colortext) {
+            alert("请输入颜色");
+            return;
+        }
+
+        // 添加一个tr元素
+        msg_tabeltr = document.createElement("tr");
+        // 给table添加
+        msg_table.insertBefore(msg_tabeltr, firstline);
+        msg_tabeltr.innerHTML = "<td>" + typetext + "</td>" +
+            "<td>" + pricetext + "</td>" +
+            "<td>" + colortext + "</td>" +
+            "<td><span>删除</span></td>";
+        del();
+    }
+    //回车添加
+    for(let i = 0 ;i < allinput.length;i++){
+        // allinput[i].onfocus = sub_btn.onclick();
+        allinput[i].onkeydown = function(e){
+           if(e.keyCode == 13){
+            sub_btn.onclick();
+           }
+            
+        }
+        
+        
+    }
+    //封装存在问题
+    /* function input_null(th,result) {
+        if (!th) {
+            alert("请输入"+result);
+            return;
+        }
+    } */
+    //点击删除事件
+    function del() {
+        // 删除按钮
+        let del_btn = $qsAll("td span");
+        for (let i = 0; i < del_btn.length; i++) {
+            del_btn[i].onclick = function () {
+                msg_table.removeChild(this.parentNode.parentNode);
+
+            }
+        }
+
+    }
+    del();
+
+</script>
+
+</html>
