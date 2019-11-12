@@ -1,0 +1,21 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+#conainer{
+
+}
+.box {
+	padding: 5px;
+	float: left;
+}
+.box_img{
+	padding: 5px;
+	border: 1px solid black;
+	box-shadow: 0 0 5x gray;
+	border-radius: 5px;
+}
+.box_img img{
+	width:150px;
+	height: auto;
+}

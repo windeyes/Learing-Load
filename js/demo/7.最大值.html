@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>4</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // 已知数组 arr = [1,9,3,7,5] ,使用程序计算出该数组的最大值，封装成函数 
+    let arr = [1,9,3,7,5];
+   
+    // 找到最大值
+    function findMax(arr){
+        let max = arr[1];
+        for(let i in arr){
+            if(max < arr[i]){
+                max = arr[i]; 
+            }
+        }
+        return max;
+    }
+    console.log(findMax(arr));
+
+</script>
+</html>

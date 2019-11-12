@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>计时器</title>
+	<style>
+		#headPortrait{
+			width:50px;
+			height: 50px;
+			background:red;
+			float:left;
+			
+		}
+		#IDcard{
+			width:300px;
+			height: 200px;
+			background:black;
+			float:left;
+			margin-left: 20px;
+			
+		}
+	</style>
+</head>
+	<script>
+		window.onload = function()
+		{
+		
+			var headPortrait = document.getElementById("headPortrait");
+			var IDcard = document.getElementById("IDcard");
+			var seeID = null;
+			IDcard.onmouseout=headPortrait.onmouseout=function()
+			{
+				seeID = setTimeout(
+					function()
+					{
+						IDcard.style.display =  "none";
+					},500);
+				
+				
+			};
+			var IDcard = document.getElementById("IDcard");
+			headPortrait.onmouseover=IDcard.onmousemove=function()
+			{
+				
+				IDcard.style.display =  "block";
+				clearTimeout(seeID);
+			};
+		}
+	</script>
+
+<body>
+	<div id="headPortrait"></div>
+	<div id="IDcard" style="display: none;"></div>
+	<a href="ClickDiv.html" >123</a>
+</body>
+</html>

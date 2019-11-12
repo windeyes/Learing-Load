@@ -1,0 +1,71 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <title>drag</title>
+     <style>
+         #div1
+         {
+            width:200px ;
+            height: 200px;
+            background: yellowgreen;
+            position: relative;
+
+         }
+         #div2
+         {
+            width: 200px;
+            height: 200px;
+            left:200px;
+            background: red;
+            position: relative;
+         }
+     </style>
+     <script>
+         window.onload = function()
+         {
+             function getid(idName)
+             {
+                 return document.getElementById(idName);
+             }
+             var div1 = getid("div1");
+             div1.onmousedown = function()
+             {
+				 
+                var Ldistance =event.clientX - div1.offsetLeft; //点击位置与点击目标左侧的距离
+                var Tdistance= event.clientY -div1.offsetTop;   //点击位置与点击目标上侧的距离
+				div1.setCapture && div1.setCapture();       //捕获事件
+				console.log("按下");
+                console.log(div1.offsetLeft);
+                    document.onmousemove = function(event)
+                {
+                   
+                    event = event || window.event;
+            
+                    var left = event.clientX;
+                    var top = event.clientY;
+                    div1.style.left = left - Ldistance +"px";
+                    div1.style.top = top- Tdistance +"px";
+                    console.log("移动");
+					
+                    
+                }
+                    document.onmouseup = function() //要使用document否则被其他div遮挡的话触发不了onmouseup
+                {
+                    document.onmousemove = null;  
+                    document.onmouseup = null;   
+                    div1.releaseCapture && div1.releaseCapture();
+                }
+                return false; 
+             }
+         }
+     </script>
+ </head>
+ <body>
+	 sdfsd 
+     <div id="div1"></div>
+     <div id="div2"></div>
+ </body>
+ </html>
