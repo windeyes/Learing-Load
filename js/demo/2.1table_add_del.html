@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .clearfix::after,
+        .clearfix::before {
+            clear: both;
+            content: "";
+            display: block;
+        }
+        h4{
+            width: 390px;
+            margin:20px auto;
+
+        }
+        a {
+            display: block;
+            width: 150px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 6px;
+            background-color: skyblue;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            margin: 0 auto;
+        }
+
+        .myinput {
+            margin: 0 auto;
+            width: 800px;
+        }
+
+        .myinput button {
+            margin-left: 40px;
+            background-color: pink;
+            border-radius: 3px;
+            color: white;
+            border: none;
+        }
+
+        table {
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        td,
+        th {
+            border: 1px solid #ccc;
+            width: 200px;
+            text-align: center;
+        }
+
+        td span {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="https://www.cnblogs.com/axu1997/">我的博客</a><br />
+    <h4>说明：输入对应值后回车或者点击按钮进行添加</h4>
+    <div class="myinput clearfix">
+        品牌：<input type="text" class="type">
+        价格：<input type="text" class="price">
+        颜色：<input type="text" class="color">
+        <button>添加</button>
+    </div>
+
+    <table>
+        <tr>
+            <th>品牌</th>
+            <th>价格(万元)</th>
+            <th>颜色</th>
+            <th></th>
+        </tr>
+        <tr>
+            <td>宝马</td>
+            <td>120</td>
+            <td>红</td>
+            <td><span class="del">删除</span></td>
+
+        </tr>
+
+    </table>
+</body>
+<script>
+    // 使用选择器选择对象
+    function getsele(ele){
+        return document.querySelector(ele);
+    }
+
+    btn = getsele(".myinput button");
+    let tbody = getsele("tbody");
+    let content = [];
+    let a = localStorage.getItem("dbCar");
+    console.log(a);
+    a? content = JSON.parse(a):content = [];
+    content.forEach(function(item){
+        tbody.innerHTML += "<td>"+item.itype+"</td><td>"+item.input_price+"</td><td>"+item.icolor+"</td> <td><span  class='del'>删除</span></td>";
+    });
+    // console.log(JSON.parse( localStorage.getItem("dbCar")));
+    // localStorage.getItem("dbCar") ? dbCar = JSON.parse( localStorage.getItem("dbCar")):dbCar=[];
+
+    btn.addEventListener('click',function(){
+        let input_type = getsele(".type").value;
+        let input_price = getsele(".price").value;
+        let input_color = getsele(".color").value;
+        let tr = document.createElement("tr");
+        tr.innerHTML = "<td>"+input_type+"</td><td>"+input_price+"</td><td>"+input_color+"</td> <td><span  class='del'>删除</span></td>"
+        tbody.appendChild(tr);
+        content.push({
+            itype:input_type,
+            iprice:input_price,
+            icolor:input_color
+        });
+        let str  = JSON.stringify(content);
+        localStorage.setItem("dbCar",str);
+    });
+    // 委派去删除
+    tbody.addEventListener('click',function(e){
+        if(e.target.classList.contains("del")){
+            tbody.removeChild(e.target.parentNode.parentNode);
+           
+        }
+    });
+    //本地加载
+
+</script>
+
+</html>
