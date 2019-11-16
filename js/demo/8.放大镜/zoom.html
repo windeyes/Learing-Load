@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .small{
+            float: left;
+            position: relative;
+            width: 300px;
+            height: 150px;
+            background-color: #bfa;
+            margin-left: 50px;
+            margin-top: 50px;
+            
+        }
+        .small img{
+            width: 100%;
+        }
+        .small div{
+            position: absolute;
+            display: none;
+            left: 0;
+            top: 0;
+            width: 120px;
+            height: 60px;
+            background-color: yellow;
+            opacity: 0.6;
+        }
+        .big {
+            position: relative;
+            overflow: hidden;
+            float: left;
+            display: none;
+            width: 300px;
+            height: 150px;
+            background-color: #0094ff;
+            margin-left: 50px;
+            margin-top: 50px;
+        }
+        .big img{
+            position: absolute;
+            width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="small">
+        <img src="gun.jpg" alt="">
+        <div></div>
+    </div>
+    <div class="big">
+        <img src="gun.jpg" alt="">
+    </div>
+</body>
+<script>
+    //根据选择器获取对象
+    function que(se){
+        return document.querySelector(se);
+    }
+    // 跟随移动
+    let mask = que(".small div");
+    let small = que(".small");
+    let big = que(".big");
+    let bigImg = que(".big img");
+
+
+       function Zoom(small,mask,big,bigImg) {
+        // 鼠标位置减去small的左边，减去mask的一半
+        small.onmousemove = function (e) {
+            big.style.display = "block";
+            mask.style.display = "block"
+            let maskLeft = e.pageX - small.offsetLeft - mask.offsetWidth / 2;
+            let maskTop = e.pageY - small.offsetTop - mask.offsetHeight / 2;
+            maskLeft = maskLeft > 0 ? maskLeft : 0;
+            maskTop = maskTop > 0 ? maskTop : 0;
+            //  判断是否超界 判断左边距是否大于大盒子减去照片  宽度  
+            maskLeft = maskLeft < small.offsetWidth - mask.offsetWidth ? maskLeft : small.offsetWidth - mask.offsetWidth;
+            maskTop = maskTop < small.offsetHeight - mask.offsetHeight ? maskTop : small.offsetHeight - mask.offsetHeight;
+            mask.style.left = maskLeft + 'px';
+            mask.style.top = maskTop + 'px';
+            bigImg.style.top = -mask.offsetTop / (small.offsetHeight - mask.offsetHeight) * (bigImg.offsetHeight - big.offsetHeight) + 'px';
+            bigImg.style.left = -mask.offsetLeft / (small.offsetWidth - mask.offsetWidth) * (bigImg.offsetWidth - big.offsetWidth) + 'px';
+            //  (gun.style.top)
+        }
+        small.onmouseout = function () {
+            big.style.display = "none";
+            mask.style.display = "none";
+        }
+    }
+    Zoom(small,mask,big,bigImg);
+    
+    
+</script>
+</html>

@@ -1,83 +1,124 @@
 function MyTools() {
+    // 最小到做大的随机不重复整数
+    this.norepeatRandomNum=function(min, max){
+        // 从最小到最大的整数数列
+        let arr = [];
+        let brr = [];
+        for (let i = min; i <= max; i++) {
+            arr.push(i);
+        }
+        do {
+            let r = Math.floor(Math.random() * arr.length);
+            // 打乱随机排列后push到brr
+            brr.push(arr[r]);
+            arr.splice(r, 1);
+        } while (arr.length > 0)
+        return brr;
+
+    }
+
     //获得随机数值(左臂右开区间)
-    this.randomNum = function(min,max){
-        return Math.floor( Math.random()*(max-min)+min);
+    this.randomNum = function (min, max) {
+        return Math.floor(Math.random() * (max - min) + min);
+    }
+
+    //封装放大镜  参数：预览框、预览悬浮块，大图显示区间，大图
+    this.Zoom = function (small, mask, big, bigImg) {
+        // 鼠标位置减去small的左边，减去mask的一半
+        small.onmousemove = function (e) {
+            big.style.display = "block";
+            mask.style.display = "block"
+            let maskLeft = e.pageX - small.offsetLeft - mask.offsetWidth / 2;
+            let maskTop = e.pageY - small.offsetTop - mask.offsetHeight / 2;
+            maskLeft = maskLeft > 0 ? maskLeft : 0;
+            maskTop = maskTop > 0 ? maskTop : 0;
+            //  判断是否超界 判断左边距是否大于大盒子减去照片  宽度  
+            maskLeft = maskLeft < small.offsetWidth - mask.offsetWidth ? maskLeft : small.offsetWidth - mask.offsetWidth;
+            maskTop = maskTop < small.offsetHeight - mask.offsetHeight ? maskTop : small.offsetHeight - mask.offsetHeight;
+            mask.style.left = maskLeft + 'px';
+            mask.style.top = maskTop + 'px';
+            bigImg.style.top = -mask.offsetTop / (small.offsetHeight - mask.offsetHeight) * (bigImg.offsetHeight - big.offsetHeight) + 'px';
+            bigImg.style.left = -mask.offsetLeft / (small.offsetWidth - mask.offsetWidth) * (bigImg.offsetWidth - big.offsetWidth) + 'px';
+            //  (gun.style.top)
+        }
+        small.onmouseout = function () {
+            big.style.display = "none";
+            mask.style.display = "none";
+        }
     }
 
 
+    
+
+
     //驼峰命名
-    this.TFName = function(name){
+    this.TFName = function (name) {
         // 每个单词
         let name2 = name.split("-");
         // 新构成的每个单词
         let every;
         // 最后合成的单词
         let get = name2[0];
-        for(let i = 1;i < name2.length;i++)
-        {
+        for (let i = 1; i < name2.length; i++) {
             // 每个字母
             let everyletter = name2[i].split("");
-            everyletter[0] =everyletter[0].toUpperCase();
+            everyletter[0] = everyletter[0].toUpperCase();
             // 新构成的每个单词
             every = everyletter.join("");
             //最后合成的单词
-            get =  get + every; 
+            get = get + every;
         }
         return get;
     }
 
     //数组冒泡_从大到小
-    this.maopao_BigToSmall = function(arr){
-         //  设置一个数字记录当前已经排号的序号
-         let nownum = arr.length - 1;
-         let nownum_item;
-        for(let i = 0;i < arr.length;i++){
+    this.maopao_BigToSmall = function (arr) {
+        //  设置一个数字记录当前已经排号的序号
+        let nownum = arr.length - 1;
+        let nownum_item;
+        for (let i = 0; i < arr.length; i++) {
             // 假设已经拍好了顺序
-             let flag = true; 
-            for(let j=0;j < nownum;j++)
-            {
-                if(arr[j] < arr[j+1]){
+            let flag = true;
+            for (let j = 0; j < nownum; j++) {
+                if (arr[j] < arr[j + 1]) {
                     let item = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = item;
-                    /*用来记录下最后一个需要交换的值*/ 
-                    nownum_item = j+1;
-                    flag = false; 
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = item;
+                    /*用来记录下最后一个需要交换的值*/
+                    nownum_item = j + 1;
+                    flag = false;
                 }
-                
+
             }
             // 将记录下来的值传回for循环
             nownum = nownum_item;
-             if(flag)
-            {
+            if (flag) {
                 break;
-            } 
+            }
         }
         return arr;
     }
 
     // 从小到大
-    this.maopao_SmallToBig = function(arr){
-        for(let i = 0;i < arr.length;i++){
-            let nownum = arr.length-1;
-            let nownum_item ;
+    this.maopao_SmallToBig = function (arr) {
+        for (let i = 0; i < arr.length; i++) {
+            let nownum = arr.length - 1;
+            let nownum_item;
             // 假设已经拍好了顺序
-             let flag = true; 
-            for(let j=0;j < nownum;j++)
-            {
-                if(arr[j] > arr[j+1]){
+            let flag = true;
+            for (let j = 0; j < nownum; j++) {
+                if (arr[j] > arr[j + 1]) {
                     let item = arr[j];
-                    arr[j] = arr[j+1];
-                    arr[j+1] = item;
-                    nownum_item = j+1;
-                    flag = false; 
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = item;
+                    nownum_item = j + 1;
+                    flag = false;
                 }
             }
             nownum = nownum_item;
-             if(flag)
-            {
+            if (flag) {
                 break;
-            } 
+            }
         }
         return arr;
     }
@@ -85,7 +126,7 @@ function MyTools() {
 
     // 存储到本地
     //参数为要存入的  value  和  键
-    this.setLocalStorage = function(value, key) {
+    this.setLocalStorage = function (value, key) {
         // 转为json
         json = JSON.stringify(value);
         // 存储到本地
@@ -93,7 +134,7 @@ function MyTools() {
     }
 
     //拿取本地存储的值
-    this.getLocalStorage = function(key) {
+    this.getLocalStorage = function (key) {
         let getValue = localStorage.getItem(key);
         getValue ? arr = JSON.parse(getValue) : arr = [];
         return arr;
