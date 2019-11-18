@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            position: relative;
+            /* 在此处修改宽*/
+            /* width: 900px; */
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .box  .imgul{
+            /* 浮动 定位 overflow display*/
+            overflow: hidden;
+            list-style: none;
+        }
+        .box .imgul li {
+            float: left;
+            height: 400px;
+        }
+
+        .box .imgul img {
+            width: 100%;
+        }
+
+        .left {
+            position: absolute;
+            cursor: pointer;
+            top: 150px;
+            left: 90px;
+            width: 60px;
+            height: 60px;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            line-height: 60px;
+            
+        }
+
+        .right {
+            position: absolute;
+            cursor: pointer;
+            top: 150px;
+            right: 90px;
+            width: 60px;
+            height: 60px;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            line-height: 60px;
+        }
+        .box .btnul{
+            position: absolute;
+            overflow: hidden;
+            list-style: none;
+            bottom: 20px;
+            left:50%;
+            transform: translate(-50%);
+        }
+        .box .btnul li{
+            float: left;
+            width: 16px;
+            height: 16px;
+            border-radius: 10px; 
+            cursor: pointer;
+        }
+        .box .btnul li:not(:first-child){
+           margin-left: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 轮播图宽高可设置css中.box的宽度和li的高度 -->
+    <div class="box">
+        <ul class="imgul">
+            <!-- <li><img src="5.jpg" alt="">5</li> -->
+            <li><img src="1.jpg" alt="">1</li>
+            <li><img src="2.jpg" alt="">2</li>
+            <li><img src="3.jpg" alt="">3</li>
+            <li><img src="4.jpg" alt="">4</li>
+            <li><img src="5.jpg" alt="">5</li>
+            <li><img src="3.jpg" alt="">3</li>
+            <!-- <li><img src="1.jpg" alt="">1</li> -->
+        </ul>
+        <ul class="btnul">
+        </ul>
+    </div>
+    <div class="left">左</div>
+    <div class="right">右</div>
+</body>
+<script src="slider.js"></script>
+<script>
+
+    
+    
+    // slider(transitionTime,SpendTime)
+    // 参数：宽（px）、高(px)、过度动画时间（ms），间隔时间（ms）
+    //默认900 ,400 ,1 ,1500 ,pink ,white
+    //使用默认样式可填写null或不填，不可跳过
+    slider(900,600,null,1500,"white","black");
+</script>
+
+</html>

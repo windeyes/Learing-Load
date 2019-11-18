@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>触摸轮播</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            max-width: 750px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .swiper {
+            display: flex;
+            width: 600%;
+            list-style: none;
+            transition: 0.5s;
+        }
+
+        .swiper li {
+            flex: 1;
+        }
+
+        .swiper img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul class="swiper">
+            <li><a href=""><img src="4.jpg" alt=""></a></li>
+            <li><a href=""><img src="1.jpg" alt=""></a></li>
+            <li><a href=""><img src="2.jpg" alt=""></a></li>
+            <li><a href=""><img src="3.jpg" alt=""></a></li>
+            <li><a href=""><img src="4.jpg" alt=""></a></li>
+            <li><a href=""><img src="1.jpg" alt=""></a></li>
+        </ul>
+    </div>
+</body>
+<script>
+    let box = document.querySelector(".box");
+    let swiper = document.querySelector(".box .swiper");
+    let lis = document.querySelectorAll(".box .swiper li");
+    let startX, startY;
+    let count = 1;
+    swiper.style.transform = `translate(-${box.clientWidth * count * -1}px)`;
+    swiper.style.transitionDuration = '0s';
+    setTimeout(function () {
+        swiper.style.transitionDuration = '0.5s';
+    }, 10)
+    lis.forEach(function (item, i) {
+        item.addEventListener('touchstart', function (e) {
+            if (e.touches.length != 1) {
+                return;
+            }
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+
+        });
+        item.addEventListener('touchend', function (e) {
+            if (e.changedTouches.length != 1) {
+                return;
+            }
+            let endX = e.changedTouches[0].clientX;
+            let endY = e.changedTouches[0].clientY;
+
+            if (Math.abs(endX - startX) > 50) {
+                // 左滑
+                console.log(endX - startX < 0);
+                if (endX - startX < 0) {
+                    count++;
+                    if (count > 5) {
+                        count = 1;
+                        //注意 此处需要手动将其调回
+                        swiper.style.transitionDuration = '0s';
+                        swiper.style.transform = `translate(${box.clientWidth * count * -1}px)`;
+                        setTimeout(function () {
+                            swiper.style.transitionDuration = '0.5s';
+                        }, 1);
+                    }
+                    console.log("左滑");
+                    swiper.style.transform = `translate(${box.clientWidth * count * -1}px)`;
+
+                }
+                // 右滑
+                else {
+                    count--;
+                    if (count < 0) {
+                        count = 4;
+                        swiper.style.transitionDuration = '0s';
+                        swiper.style.transform = `translate(${box.clientWidth * count * -1}px)`;
+                        setTimeout(function () {
+                            swiper.style.transitionDuration = '0.5s';
+                        }, 1);
+                    }
+                    //看不懂
+                    //  swiper.style.transform = `translate(-${box.clientWidth * -1}px)`;
+                    swiper.style.transform = `translate(${box.clientWidth * count * -1}px)`;
+                    console.log(swiper.style.transform);
+
+                }
+            }
+        });
+    });
+
+
+
+</script>
+
+</html>
