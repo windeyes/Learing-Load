@@ -1,21 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>6</title>
-   <style>
-       p{
-           text-transform: capitalize
-       }
-   </style>
-</head>
-<body>
-    
-</body>
-<script>
-  
+
     // 将如下字符串'get-element-by-id'修改为驼峰表示法'getElementById'
     let name = 'get-element-by-id'
     name = name.split("-");
@@ -39,6 +22,3 @@
     console.log(new_name);
    
     
-</script>
-
-</html>
