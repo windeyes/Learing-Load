@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+            text-align:center;
+        }
+        .firstMenu{
+            width: 200px;
+        }
+         .firstMenu li a{
+            display: block;
+            width: 200px;
+            height: 30px;
+            border-radius: 4px;
+        }
+        .secondMenu{
+            height: 100px;
+            /* overflow: hidden; */
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <ul class="firstMenu">
+        <li>
+            <a href="">一级菜单</a>
+            <ul class="secondMenu">
+                <li>1</li>
+                <li>2</li> 
+                <li>3</li>
+            </ul>
+        </li>
+        <li>
+            <a href="">一级菜单</a>
+            <ul class="secondMenu">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+            </ul>
+        </li>
+        <li>
+            <a href="">一级菜单</a>
+            <ul class="secondMenu">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+            </ul>
+        </li>
+        <li>
+            <a href="">一级菜单</a>
+            <ul class="secondMenu">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+            </ul>
+        </li>
+
+    </ul>
+</body>
+<script src="jquery/jquery-2.2.2.js"></script>
+<script>
+    let firstMenu = $('.firstMenu li a');
+    firstMenu.click(function(){
+        $(this).siblings().fadeIn().parent().siblings().children('.secondMenu').slideUp();
+        console.log()
+    });
+    let a = document.querySelectorAll('a');
+    a.forEach(function(e){
+        e.addEventListener('click',function(e){
+            e.preventDefault();
+        })
+    });
+</script>
+
+</html>

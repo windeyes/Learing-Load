@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .envirompent {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            border: 1px solid salmon;
+            perspective: 200px;
+        }
+
+        .envirompent img {
+            width: 100px;
+        }
+
+
+        .smallbox {
+            position: absolute;
+            overflow: hidden;
+            bottom: 0;
+
+        }
+
+        .smallbox:nth-child() div {
+            display: none;
+            height: 200px;
+            
+        }
+
+     
+    </style>
+</head>
+
+<body>
+    <div class="envirompent">
+
+        <div class="smallbox">
+            <img src="僵尸.png" alt="">
+            <div></div>
+        </div>
+    </div>
+</body>
+<script src="../jquery/jquery-2.2.2.js"></script>
+<script>
+     let ev = $('.envirompent');
+    for (let i = 0; i < 10; i++) {
+        let gui = ` <div class="smallbox">
+                <img src="僵尸.png" alt="">
+                <div></div>
+            </div>`;
+        ev.append(gui);    
+    }
+    let smallboxs = $('.envirompent .smallbox');
+    let div1 = $('.envirompent .smallbox div');
+    smallboxs.each(function (i, e) {
+        e.style.left =  Math.random() * 600 + 'px';
+        e.style.transform = `translate3d(0,0,${Math.random()*80}px)`;
+        // $().siblings.css('height',Math.random()*200+'px')
+        $(e).children('div').css({
+            'height':Math.random()*200+40+'px',
+        });   
+    })
+    ev.mouseover(()=>{
+        console.log(1);
+        div1.slideDown();
+    })
+    ev.mouseout(()=>{
+        console.log(1);
+        div1.slideUp();
+    })
+    
+</script>
+
+</html>

@@ -1,0 +1,84 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>五角星评分案例</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .comment {
+            font-size: 40px;
+            color: red;
+        }
+
+        .comment li {
+            float: left;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style: none;
+        }
+        .mybox{
+            width: 100px;
+            height: 100px;
+            background-color: #bfa;
+            transition: 2s;
+            
+        }
+        .mybox:hover{
+            background-color: orange;
+        }
+    </style>
+     
+</head>
+
+<body>
+
+    <ul class="comment">
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+    </ul>
+    <div class="mybox">
+        
+    </div>
+</body>
+<script src="../jquery/jquery-2.2.2.js"></script>
+<script>
+    $(function(){
+       let lis = $('li');
+    //    记录点击了哪一个
+       let count;
+       var ICON1 = "★";
+       var ICON2 = "☆";
+       lis.mouseover(function(){
+        //    当前指向
+           let currentli = $(this).index();
+           lis.each((index,itme)=>{
+                index< currentli+1 ? $(itme).text(ICON1):$(itme).text(ICON2);
+           })
+       })
+       .mouseout(function(){
+            lis.each((index,item)=>{        
+                index<count+1?$(item).text(ICON1):$(item).text(ICON2);
+            }) 
+            
+       })
+       .click(function(){
+        count = $(this).index();
+           lis.each((index,item)=>{
+               index < count+1?$(item).text(ICON1):$(item).text(ICON2);
+           })
+           console.log($('ul').children('li').length)
+       })
+    })
+</script>
+</html>
