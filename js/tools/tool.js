@@ -1,6 +1,156 @@
 function MyTools() {
+    //一个ajax
+    this.myajax= function (obj){
+        obj.url = obj.url || '';
+        obj.type = obj.type || 'get';
+        //遍歷data返回url編碼格式的字符串
+        let arr = [];
+        for(let key in obj.data){
+            arr.push(key+'='+obj.data[key]);
+        }
+        obj.data = arr.join('&');
+    
+        let xhr = new XMLHttpRequest();
+        //如果是get將數據放到url中去
+        obj.type == 'get' && (obj.url += '?' + obj.data)
+        xhr.open(obj.type,obj.url);
+        if(obj.type == 'post'){
+            xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+            xhr.send(obj.data);
+        }else{
+            xhr.send();
+        }
+        
+        xhr.onreadystatechange = function(){
+            if(xhr.status == 200 && xhr.readyState == 4){
+                let response = xhr.responseText;
+                if(xhr.getResponseHeader('Content-Type').indexOf('json')!==-1){
+                    response = JSON.parse(xhr.responseText);
+                }
+                obj.callback && obj.callback(response);
+            }
+            
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    /*    function myajax(obj) {
+       let xhr = new XMLHttpRequest();
+       obj=obj||{};
+       obj.type = obj.type || 'get';
+       obj.data = obj.data || {};
+       let arr = [];
+       // 若使用get方法将data对象转换为url编码格式
+       if (obj.type == 'get') {
+           for (let key in obj.data) {
+               arr.push(`${key}=${obj.data[key]}`)
+           }
+           obj.url += "?" + arr.join('&');
+       }
+       xhr.open(obj.type, obj.url);
+       if(obj.type=='get'){
+           xhr.send();
+       }else{
+           //加个请求头
+           //再在send里面加需要的键值对
+           xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+           let arr = [];
+           for (let key in obj.data) {
+               arr.push(`${key}=${obj.data[key]}`)
+           }
+           xhr.send(arr.join('&'));
+       }
+       xhr.onreadystatechange = function () {
+           if (xhr.status == 200 && xhr.readyState == 4) {
+               //调用回调
+               let rsText = JSON.parse(xhr.responseText)
+               obj.callback && obj.callback(rsText);
+           }
+    
+       }
+    } */
+  
+    //深度拷贝
+
+    //一个sort的实现
+    Array.prototype.mysort = function (fn) {
+        if (fn) {
+            let num = this.length - 1;
+            let nownum;
+            for (let i = 0; i < this.length - 1; i++) {
+                let flag = true;
+                for (let j = 0; j < num; j++) {
+                    let item;
+                    if (fn(this[j], this[j + 1]) > 0) {
+                        item = this[j];
+                        this[j] = this[j + 1];
+                        this[j + 1] = item;
+                        flag = false;
+                        nownum = j + 1;
+                    }
+                }
+                num = nownum;
+                if (flag) {
+                    break;
+                }
+            }
+        } else {
+            let num = this.length - 1;
+            let nownum;
+            for (let i = 0; i < this.length - 1; i++) {
+                let flag = true;
+                for (let j = 0; j < num; j++) {
+                    let item;
+                    if (this[j].toString() > this[j + 1].toString()) {
+                        item = this[j];
+                        this[j] = this[j + 1];
+                        this[j + 1] = item;
+                        flag = false;
+                        nownum = j + 1;
+                    }
+                }
+                num = nownum;
+                if (flag) {
+                    break;
+                }
+            }
+
+
+        }
+        return this;
+
+    }
+
+    //判断时闰年还是平年
+    this.knowYear = function (year) {
+        /* 判断一个年份是闰年还是平年 */
+        let year = year;
+        // 2 使用if判断
+        /* 闰年
+            - 可以被400整除 2000年
+            - 可以被4整除但是不能被100整除 2008年
+        */
+        if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {
+            alert('输入的年份是闰年');
+        } else {
+            alert('输入的年份不是闰年');
+        }
+    }
+
+
     // 最小到做大的随机不重复整数
-    this.norepeatRandomNum=function(min, max){
+    this.norepeatRandomNum = function (min, max) {
         // 从最小到最大的整数数列
         let arr = [];
         let brr = [];
@@ -46,10 +196,6 @@ function MyTools() {
             mask.style.display = "none";
         }
     }
-
-
-    
-
 
     //驼峰命名
     this.TFName = function (name) {
@@ -123,7 +269,6 @@ function MyTools() {
         return arr;
     }
 
-
     // 存储到本地
     //参数为要存入的  value  和  键
     this.setLocalStorage = function (value, key) {
@@ -132,7 +277,6 @@ function MyTools() {
         // 存储到本地
         localStorage.setItem(key, json);
     }
-
     //拿取本地存储的值
     this.getLocalStorage = function (key) {
         let getValue = localStorage.getItem(key);
