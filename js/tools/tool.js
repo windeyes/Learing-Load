@@ -32,56 +32,21 @@ function MyTools() {
             
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    /*    function myajax(obj) {
-       let xhr = new XMLHttpRequest();
-       obj=obj||{};
-       obj.type = obj.type || 'get';
-       obj.data = obj.data || {};
-       let arr = [];
-       // 若使用get方法将data对象转换为url编码格式
-       if (obj.type == 'get') {
-           for (let key in obj.data) {
-               arr.push(`${key}=${obj.data[key]}`)
-           }
-           obj.url += "?" + arr.join('&');
-       }
-       xhr.open(obj.type, obj.url);
-       if(obj.type=='get'){
-           xhr.send();
-       }else{
-           //加个请求头
-           //再在send里面加需要的键值对
-           xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-           let arr = [];
-           for (let key in obj.data) {
-               arr.push(`${key}=${obj.data[key]}`)
-           }
-           xhr.send(arr.join('&'));
-       }
-       xhr.onreadystatechange = function () {
-           if (xhr.status == 200 && xhr.readyState == 4) {
-               //调用回调
-               let rsText = JSON.parse(xhr.responseText)
-               obj.callback && obj.callback(rsText);
-           }
-    
-       }
-    } */
+     
   
     //深度拷贝
+    this.deepCopy=function(obj) {
+        let copyObj = {}
+        for (let key in obj) {
+            if (typeof obj[key] == 'object') {
+                copyObj[key] = deepCopy(obj[key]);
+            }else{
+                copyObj[key] = obj[key];
+            }
+           
+        }
+        return copyObj;
+    }
 
     //一个sort的实现
     Array.prototype.mysort = function (fn) {
